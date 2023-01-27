@@ -12,8 +12,11 @@ class FilesView(generics.ListCreateAPIView):
             return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
 
         serializer.save()
+
+        serializer_of_return = FileSerializer(File.objects.all(), many=True)
            
-        return Response(serializer.data, status.HTTP_201_CREATED)
+        return Response(serializer_of_return.data, status.HTTP_201_CREATED)
+
 
     def get(self, request: Request) -> Response:
         files = File.objects.all()

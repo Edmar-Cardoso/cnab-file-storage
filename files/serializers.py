@@ -32,32 +32,34 @@ class FileSerializer(serializers.ModelSerializer):
             "file": {"write_only":True}
         }
 
-    def create(self, validadeted_data: dict) -> File:
+    def create(self, validadeted_data: dict) -> dict:
         # placing a marker to separate the string
 
-        """ new_string = ""
+        new_string = ""
         for x in range(len(validadeted_data["file"])):
             if x % 81 == 0 and x > 0:
                 new_string += "##" + validadeted_data["file"][x]
             else:
-                new_string += validadeted_data["file"][x] """
+                new_string += validadeted_data["file"][x]
+
+        #persisting data in the database
         
-        # to-do
+        array_files = new_string.split("##")
 
-        file = validadeted_data["file"]
+        for file in array_files:
+            data_file = {
+                'transaction_type': int(file[0:1]), 
+                'transaction_at': datetime.strptime(f'{file[1:5]}-{file[5:7]}-{file[7:9]}', '%Y-%m-%d').date(),
+                'value': float(int(file[9:19])/100),
+                'cpf': file[19:30],
+                'card': file[30:42],
+                'transaction_hour': f'{file[42:44]}:{file[44:46]}:{file[46:48]}',
+                'owner': file[48:62],
+                'name': file[62: 81],
+                'file': ""
+            }
 
-        #for file in array_files:
-        data_file = {
-            'transaction_type': int(file[0:1]), 
-            'transaction_at': datetime.strptime(f'{file[1:5]}-{file[5:7]}-{file[7:9]}', '%Y-%m-%d').date(),
-            'value': float(int(file[9:19])/100),
-            'cpf': file[19:30],
-            'card': file[30:42],
-            'transaction_hour': f'{file[42:44]}:{file[44:46]}:{file[46:48]}',
-            'owner': file[48:62],
-            'name': file[62: 81],
-            'file': ""
-        }
+            File.objects.create(**data_file)
 
-        return File.objects.create(**data_file)
+        return {}
 

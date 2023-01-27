@@ -6,16 +6,7 @@ from datetime import datetime
 class FileSerializer(serializers.ModelSerializer):
     class Meta:
         model = File
-        fields = [
-            'file',
-            'id', 
-            'transaction_type', 
-            'transaction_at', 
-            'value', 
-            'card', 
-            'transaction_hour',
-            'store'
-        ]
+        fields = '__all__'
         read_only_fields = [
             'id', 
             'transaction_type', 

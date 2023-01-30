@@ -121,16 +121,14 @@ Base URL: http://localhost:8000/api/
 ### Índice
 
 - [Files](#1-login)
-  - [POST - files/](#11-)
-- [Clients](#2-clients)
-  - [POST - /clients](#21-criação-do-cliente)
-  - [GET - /clients](#22-listando-clientes)
+  - [POST - files/](#11-enviando-o-arquivo-e-armazenando-o-mesmo)
+  - [GET - files/](#12-listando-todas-as-transações-no-banco)
 
 ---
 
 ## 1. **Files**
 
-[ Voltar para os Endpoints ](#5-endpoints)
+[ Voltar para os Endpoints ](#4-endpoints)
 
 O objeto file é definido como:
 
@@ -147,16 +145,13 @@ O objeto file é definido como:
 
 O objeto store é definido como:
 
-| Campo            | Tipo   | Descrição                                        |
-| ---------------- | ------ | ------------------------------------------------ |
-| id               | number | ID da Transação armazanada.                      |
-| transaction_type | string | Tipo de transação realizada.                     |
-| transaction_at   | string | Data que a transação foi realizada.              |
-| value            | string | Valor da transação.                              |
-| card             | string | Cartão usado.                                    |
-| transaction_hour | string | Hora que a transação foi reaizada.               |
-| store            | string | Loja beneficiária da transação.                  |
-| file             | string | Arquivo CNAB usado para armazenar as transações. |
+| Campo | Tipo   | Descrição             |
+| ----- | ------ | --------------------- |
+| id    | number | ID da loja.           |
+| total | string | Saldo total da loja.  |
+| cpf   | string | CPF do dono da loja.  |
+| owner | string | Nome do dono da loja. |
+| name  | string | Nome da loja.         |
 
 ### Endpoints
 
@@ -167,9 +162,9 @@ O objeto store é definido como:
 
 ---
 
-### 1.1. **Enviando Arquivo e armazenando o mesmo**
+### 1.1. **Enviando o arquivo e armazenando o mesmo**
 
-[ Voltar para os Endpoints ](#5-endpoints)
+[ Voltar para os Endpoints ](#4-endpoints)
 
 ### `files/`
 
